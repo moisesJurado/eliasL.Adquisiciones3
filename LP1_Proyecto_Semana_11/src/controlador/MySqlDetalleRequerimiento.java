@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import entidad.DetalleRequerimiento;
 import util.MySqlConectar;
 
-class MySqlDetalleRequerimiento {
+public class MySqlDetalleRequerimiento {
 	public int addDetalleRequerimiento(DetalleRequerimiento detaReq) {
 		int estado = -1;
 		Connection cn = null;
