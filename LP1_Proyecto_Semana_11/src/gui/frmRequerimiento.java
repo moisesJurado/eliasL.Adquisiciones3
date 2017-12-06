@@ -202,7 +202,6 @@ public class frmRequerimiento extends JFrame {
 		int rowCount = tblDetalleRequerimiento.getModel().getRowCount();
 		int colCount = tblDetalleRequerimiento.getModel().getColumnCount();
 		Object objAux;
-
 		for (int row = 0; row < rowCount; row++) {
 			rowSaved = new DetalleRequerimiento();
 			for (int column = 0; column < colCount; column++) {
@@ -210,18 +209,13 @@ public class frmRequerimiento extends JFrame {
 				if (column == 0)
 					rowSaved.codigoRequerimiento = Integer.parseInt(objAux.toString());
 				if (column == 1)
-					rowSaved.codigoBienes = new MySqlBienes().listaBienesXnombre(objAux.toString()).get(0).getCodigo();				
+					rowSaved.codigoBienes = new MySqlBienes().listaBienesXnombre(objAux.toString()).get(0).getCodigo();
 				if (column == 2) {
-					/*
-					 * try { rowSaved.precioBase = format.parse(objAux.toString()).doubleValue(); }
-					 * catch (ParseException e) { e.printStackTrace(); }
-					 */
 					NumberFormat _format = NumberFormat.getInstance(Locale.US);
 					Number number = null;
 					try {
 						number = _format.parse(objAux.toString());
 						double _double = Double.parseDouble(number.toString());
-						System.err.println("Double Value is :" + _double);
 						rowSaved.precioBase = _double;
 					} catch (ParseException e) {
 					}
