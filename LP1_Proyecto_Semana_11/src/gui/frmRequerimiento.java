@@ -146,7 +146,6 @@ public class frmRequerimiento extends JFrame {
 				actionPerformedBtnPasar(arg0);
 			}
 		});
-
 		btnPasar.setBounds(321, 199, 89, 23);
 		contentPane.add(btnPasar);
 
@@ -155,6 +154,11 @@ public class frmRequerimiento extends JFrame {
 		contentPane.add(btnEliminar);
 
 		JButton btnGenerar = new JButton("Generar");
+		btnGenerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actionPerformedBtnGenerar(arg0);
+			}
+		});
 		btnGenerar.setBounds(309, 387, 89, 23);
 		contentPane.add(btnGenerar);
 
@@ -182,5 +186,33 @@ public class frmRequerimiento extends JFrame {
 				};
 		modelo.addRow(objs);
 		tblDetalleRequerimiento = new JTable(modelo);
+	}
+	
+	protected void actionPerformedBtnGenerar(ActionEvent arg0) {			
+		//////tblDetalleRequerimiento.getModel().getValueAt(arg0, arg1)		
+		//ArrayList<String[]> tableSaved = new ArrayList<>();
+		ArrayList<DetalleRequerimiento> tableSaved = new ArrayList<DetalleRequerimiento>();
+	    String[] rowSaved;
+	    String cellValue;
+	    int rowCount=tblDetalleRequerimiento.getModel().getRowCount();
+	    int colCount=tblDetalleRequerimiento.getModel().getColumnCount();
+	    
+		for(int row=0;row<rowCount;row++){
+			rowSaved = new String[colCount];
+	        for (int column=0; column<colCount;column++){	        	
+	            cellValue = (String) tblDetalleRequerimiento.getModel().getValueAt(row, column);
+	            rowSaved[column] = cellValue;
+	        }       
+	        //tableSaved.add(rowSaved);	  	    
+	    }	
+		
+		/*for(int row=0;row<rowCount;row++){
+			rowSaved = new String[colCount];
+	        for (int column=0; column<colCount;column++){	        	
+	            cellValue = (String) tblDetalleRequerimiento.getModel().getValueAt(row, column);
+	            rowSaved[column] = cellValue;
+	        }       
+	        tableSaved.add(rowSaved);	  	    
+	    }*/
 	}
 }
