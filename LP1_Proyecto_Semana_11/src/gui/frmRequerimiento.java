@@ -12,11 +12,14 @@ import componentes.JComboBoxBD;
 import controlador.MySqlBienes;
 import controlador.MySqlDetalleRequerimiento;
 import controlador.MySqlRequerimiento;
+import entidad.Bienes;
 import entidad.DetalleRequerimiento;
 import entidad.Requerimiento;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -40,6 +43,8 @@ public class frmRequerimiento extends JFrame {
 	private JTextField txtFechaEntrega;
 	private JTextField txtObservaciones;
 	private JTable tblDetalleRequerimiento;
+	private JComboBoxBD cboBienes;
+	private JSpinner spCantidad;
 
 	/**
 	 * Launch the application.
@@ -114,11 +119,11 @@ public class frmRequerimiento extends JFrame {
 		lblElegirBienesDe.setBounds(10, 113, 73, 14);
 		contentPane.add(lblElegirBienesDe);
 
-		JComboBox cboBienes = new JComboBoxBD(new MySqlBienes().listBienes());
+		cboBienes = new JComboBoxBD(new MySqlBienes().listBienes());
 		cboBienes.setBounds(125, 113, 565, 17);
 		contentPane.add(cboBienes);
 
-		JSpinner spCantidad = new JSpinner();
+		spCantidad = new JSpinner();
 		spCantidad.setBounds(125, 200, 86, 20);
 		contentPane.add(spCantidad);
 
@@ -136,6 +141,12 @@ public class frmRequerimiento extends JFrame {
 		txtObservaciones.setColumns(10);
 
 		JButton btnPasar = new JButton("Pasar");
+		btnPasar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actionPerformedBtnPasar(arg0);
+			}
+		});
+
 		btnPasar.setBounds(321, 199, 89, 23);
 		contentPane.add(btnPasar);
 
@@ -151,12 +162,24 @@ public class frmRequerimiento extends JFrame {
 		scrollPane.setBounds(10, 231, 680, 142);
 		contentPane.add(scrollPane);
 
-		tblDetalleRequerimiento = new JTable();
-		scrollPane.setViewportView(tblDetalleRequerimiento);
 		modelo.addColumn("Código");
 		modelo.addColumn("Bien");
 		modelo.addColumn("Precio Base");
 		modelo.addColumn("Cantidad");
 		modelo.addColumn("Observaciones");
+		tblDetalleRequerimiento = new JTable(modelo);
+		scrollPane.setViewportView(tblDetalleRequerimiento);
+	}
+
+	protected void actionPerformedBtnPasar(ActionEvent arg0) {
+		Object[] objs = { 
+				txtCodRequerimiento.getText(),
+				cboBienes.getSelectedItem().toString(),
+				0,
+				spCantidad.getValue(),
+				txtObservaciones.getText() 
+				};
+		modelo.addRow(objs);
+		tblDetalleRequerimiento = new JTable(modelo);
 	}
 }
