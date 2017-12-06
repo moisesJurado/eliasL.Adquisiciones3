@@ -140,7 +140,7 @@ public class frmBienes extends JFrame {
 		scrollPane.setViewportView(tblBienes);
 		modelo.addColumn("Código");
 		modelo.addColumn("nombre");
-		modelo.addColumn("categotia");
+		modelo.addColumn("categoria");
 		modelo.addColumn("precio");
 		modelo.addColumn("estado");
 		
