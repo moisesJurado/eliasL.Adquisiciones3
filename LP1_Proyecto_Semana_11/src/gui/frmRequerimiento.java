@@ -172,10 +172,11 @@ public class frmRequerimiento extends JFrame {
 	}
 
 	protected void actionPerformedBtnPasar(ActionEvent arg0) {
+		String nombreDelBienEnCuestion = cboBienes.getSelectedItem().toString();
 		Object[] objs = { 
 				txtCodRequerimiento.getText(),
-				cboBienes.getSelectedItem().toString(),
-				0,
+				nombreDelBienEnCuestion,
+				new MySqlBienes().listaBienesXnombre(nombreDelBienEnCuestion).get(0).precioBase,
 				spCantidad.getValue(),
 				txtObservaciones.getText() 
 				};
