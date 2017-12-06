@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true">  
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="entidad.Empleado" project="LP1_Proyecto_Semana_11" 
+    file="/LP1_Proyecto_Semana_11/src/entidad/Empleado.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="729" width="145" x="410" y="-189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="entidad.Proveedor" project="LP1_Proyecto_Semana_11" 
+    file="/LP1_Proyecto_Semana_11/src/entidad/Proveedor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="621" width="158" x="595" y="-189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="entidad.DetalleRequerimiento" project="LP1_Proyecto_Semana_11" 
+    file="/LP1_Proyecto_Semana_11/src/entidad/DetalleRequerimiento.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="184" x="793" y="-189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="entidad.Requerimiento" project="LP1_Proyecto_Semana_11" 
+    file="/LP1_Proyecto_Semana_11/src/entidad/Requerimiento.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="201" x="1017" y="-189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="entidad.Bienes" project="LP1_Proyecto_Semana_11" 
+    file="/LP1_Proyecto_Semana_11/src/entidad/Bienes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="160" x="1258" y="-189"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
