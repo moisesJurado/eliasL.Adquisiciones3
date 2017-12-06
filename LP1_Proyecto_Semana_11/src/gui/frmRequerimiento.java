@@ -188,31 +188,33 @@ public class frmRequerimiento extends JFrame {
 		tblDetalleRequerimiento = new JTable(modelo);
 	}
 	
-	protected void actionPerformedBtnGenerar(ActionEvent arg0) {			
-		//////tblDetalleRequerimiento.getModel().getValueAt(arg0, arg1)		
-		//ArrayList<String[]> tableSaved = new ArrayList<>();
+	protected void actionPerformedBtnGenerar(ActionEvent arg0) {
+		
+		//new MySqlRequerimiento().addRequerimiento(
+		//new Requerimiento() 
+		//{
+		//	codigoRequerimiento=0;
+		//}
+	    //);//aqui insertar la cabecera
+		
 		ArrayList<DetalleRequerimiento> tableSaved = new ArrayList<DetalleRequerimiento>();
-	    String[] rowSaved;
-	    String cellValue;
+		DetalleRequerimiento rowSaved;	    
 	    int rowCount=tblDetalleRequerimiento.getModel().getRowCount();
 	    int colCount=tblDetalleRequerimiento.getModel().getColumnCount();
-	    
+	    Object objAux ;
 		for(int row=0;row<rowCount;row++){
-			rowSaved = new String[colCount];
-	        for (int column=0; column<colCount;column++){	        	
-	            cellValue = (String) tblDetalleRequerimiento.getModel().getValueAt(row, column);
-	            rowSaved[column] = cellValue;
-	        }       
-	        //tableSaved.add(rowSaved);	  	    
-	    }	
-		
-		/*for(int row=0;row<rowCount;row++){
-			rowSaved = new String[colCount];
-	        for (int column=0; column<colCount;column++){	        	
-	            cellValue = (String) tblDetalleRequerimiento.getModel().getValueAt(row, column);
-	            rowSaved[column] = cellValue;
+			rowSaved = new DetalleRequerimiento();
+	        for (int column=0; column<colCount;column++){	 
+	        	objAux=tblDetalleRequerimiento.getModel().getValueAt(row, column);
+	        	if(column==0) rowSaved.codigoRequerimiento= (int)objAux;
+	        	if(column==1) rowSaved.codigoBienes= (int)objAux;
+	        	if(column==2) rowSaved.cantidadBienes= (int)objAux;
+	        	if(column==3) rowSaved.precioBase= (double)objAux;
+	        	if(column==4) rowSaved.obsBienes= (String)objAux;	        		        		        	         
 	        }       
 	        tableSaved.add(rowSaved);	  	    
-	    }*/
+	    }	
+		for(DetalleRequerimiento i : tableSaved)
+		 new MySqlDetalleRequerimiento().addDetalleRequerimiento(i);
 	}
 }
