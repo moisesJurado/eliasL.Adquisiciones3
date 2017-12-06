@@ -1,19 +1,37 @@
 package controlador;
 
-public class MySqlRequerimiento {
-	/*CREATE TABLE `requerimiento` (
-  `cod_requerimiento` int(11) NOT NULL,
-  `cod_empleado` int(11) NOT NULL,
-  `fec_requerimiento` date NOT NULL,
-  `fec_entrega` date NOT NULL,
-  `atencion_almacen_si_no` tinyint(4) NOT NULL,
-  `est_requerimiento` varchar(15) NOT NULL DEFAULT 'ACTIVO',*/
-	
-	/*CREATE TABLE `detalle_requerimiento` (
-  `cod_requerimiento` int(11) NOT NULL,
-  `cod_bienes` int(11) NOT NULL,
-  `cantidad_requerida` int(11) NOT NULL,
-  `observaciones` varchar(500) NOT NULL,
-  PRIMARY KEY (`cod_requerimiento`,`cod_bienes`),*/
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import entidad.Requerimiento;
+import util.MySqlConectar;
 
+public class MySqlRequerimiento {
+	public int addRequerimiento(Requerimiento req) {
+		int estado = -1;
+		Connection cn = null;
+		PreparedStatement pstm = null;			
+		try {
+			cn = new MySqlConectar().getConectar();
+			String sql = "insert into Requerimiento values(?,?,?,?,?)";
+			pstm = cn.prepareStatement(sql);
+			pstm.setInt(1, req.getCodigoRequerimiento());
+			pstm.setInt(2, req.getCodigoEmpleado());
+			pstm.setString(3, req.getFechaEmision());
+			pstm.setString(4, req.getFechaEntrega());
+			pstm.setString(5, req.getEstadoRequerimiento());
+			estado = pstm.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstm != null)
+					pstm.close();
+				if (cn != null)
+					cn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return estado;
+	}
 }

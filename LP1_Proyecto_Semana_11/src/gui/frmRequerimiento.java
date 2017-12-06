@@ -2,12 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import componentes.JComboBoxBD;
 import controlador.MySqlBienes;
 import controlador.MySqlDetalleRequerimiento;
@@ -15,13 +13,14 @@ import controlador.MySqlRequerimiento;
 import entidad.Bienes;
 import entidad.DetalleRequerimiento;
 import entidad.Requerimiento;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -177,44 +176,46 @@ public class frmRequerimiento extends JFrame {
 
 	protected void actionPerformedBtnPasar(ActionEvent arg0) {
 		String nombreDelBienEnCuestion = cboBienes.getSelectedItem().toString();
-		Object[] objs = { 
-				txtCodRequerimiento.getText(),
-				nombreDelBienEnCuestion,
-				new MySqlBienes().listaBienesXnombre(nombreDelBienEnCuestion).get(0).precioBase,
-				spCantidad.getValue(),
-				txtObservaciones.getText() 
-				};
+		Object[] objs = { txtCodRequerimiento.getText(), nombreDelBienEnCuestion,
+				new MySqlBienes().listaBienesXnombre(nombreDelBienEnCuestion).get(0).precioBase, spCantidad.getValue(),
+				txtObservaciones.getText() };
 		modelo.addRow(objs);
 		tblDetalleRequerimiento = new JTable(modelo);
 	}
-	
+
 	protected void actionPerformedBtnGenerar(ActionEvent arg0) {
-		
-		//new MySqlRequerimiento().addRequerimiento(
-		//new Requerimiento() 
-		//{
-		//	codigoRequerimiento=0;
-		//}
-	    //);//aqui insertar la cabecera
-		
+		Requerimiento elRequerimiento = new Requerimiento();
+		elRequerimiento.setCodigoRequerimiento(Integer.parseInt(txtCodRequerimiento.getText()));
+		elRequerimiento.setCodigoEmpleado(Integer.parseInt(txtCodEmpleado.getText()));			
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");		
+		elRequerimiento.setFechaEmision(df.format(new Date()));
+		elRequerimiento.setFechaEntrega(txtFechaEntrega.getText());
+		elRequerimiento.setEstadoRequerimiento("1"/*cboEstado.getValue()*/);
+		new MySqlRequerimiento().addRequerimiento(elRequerimiento);
+
 		ArrayList<DetalleRequerimiento> tableSaved = new ArrayList<DetalleRequerimiento>();
-		DetalleRequerimiento rowSaved;	    
-	    int rowCount=tblDetalleRequerimiento.getModel().getRowCount();
-	    int colCount=tblDetalleRequerimiento.getModel().getColumnCount();
-	    Object objAux ;
-		for(int row=0;row<rowCount;row++){
+		DetalleRequerimiento rowSaved;
+		int rowCount = tblDetalleRequerimiento.getModel().getRowCount();
+		int colCount = tblDetalleRequerimiento.getModel().getColumnCount();
+		Object objAux;
+		for (int row = 0; row < rowCount; row++) {
 			rowSaved = new DetalleRequerimiento();
-	        for (int column=0; column<colCount;column++){	 
-	        	objAux=tblDetalleRequerimiento.getModel().getValueAt(row, column);
-	        	if(column==0) rowSaved.codigoRequerimiento= (int)objAux;
-	        	if(column==1) rowSaved.codigoBienes= (int)objAux;
-	        	if(column==2) rowSaved.cantidadBienes= (int)objAux;
-	        	if(column==3) rowSaved.precioBase= (double)objAux;
-	        	if(column==4) rowSaved.obsBienes= (String)objAux;	        		        		        	         
-	        }       
-	        tableSaved.add(rowSaved);	  	    
-	    }	
-		for(DetalleRequerimiento i : tableSaved)
-		 new MySqlDetalleRequerimiento().addDetalleRequerimiento(i);
+			for (int column = 0; column < colCount; column++) {
+				objAux = tblDetalleRequerimiento.getModel().getValueAt(row, column);
+				if (column == 0)
+					rowSaved.codigoRequerimiento = (int) objAux;
+				if (column == 1)
+					rowSaved.codigoBienes = (int) objAux;
+				if (column == 2)
+					rowSaved.cantidadBienes = (int) objAux;
+				if (column == 3)
+					rowSaved.precioBase = (double) objAux;
+				if (column == 4)
+					rowSaved.obsBienes = (String) objAux;
+			}
+			tableSaved.add(rowSaved);
+		}
+		for (DetalleRequerimiento i : tableSaved)
+			new MySqlDetalleRequerimiento().addDetalleRequerimiento(i);
 	}
 }
