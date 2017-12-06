@@ -2,6 +2,9 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -47,6 +50,11 @@ public class frmPrincipal extends JFrame {
 		mnMantenimiento.add(mntmProveedor);
 		
 		JMenuItem mntmBienes = new JMenuItem("Bienes");
+		mntmBienes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actionPerformedMntmBienes(arg0);
+			}
+		});
 		mnMantenimiento.add(mntmBienes);
 		
 		JMenuItem mntmEmpleado = new JMenuItem("Empleado");
@@ -74,4 +82,34 @@ public class frmPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	}
+	
+	protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}
+	
+	/*protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}
+	
+	protected void actionPerformedMntmBienes(ActionEvent arg0) {
+		frmBienes ofrmBienes = new frmBienes();
+		ofrmBienes.setVisible(true);
+	}*/
 }
