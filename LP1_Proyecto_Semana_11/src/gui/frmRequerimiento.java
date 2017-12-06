@@ -18,9 +18,13 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -186,11 +190,11 @@ public class frmRequerimiento extends JFrame {
 	protected void actionPerformedBtnGenerar(ActionEvent arg0) {
 		Requerimiento elRequerimiento = new Requerimiento();
 		elRequerimiento.setCodigoRequerimiento(Integer.parseInt(txtCodRequerimiento.getText()));
-		elRequerimiento.setCodigoEmpleado(Integer.parseInt(txtCodEmpleado.getText()));			
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");		
+		elRequerimiento.setCodigoEmpleado(Integer.parseInt(txtCodEmpleado.getText()));
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		elRequerimiento.setFechaEmision(df.format(new Date()));
 		elRequerimiento.setFechaEntrega(txtFechaEntrega.getText());
-		elRequerimiento.setEstadoRequerimiento("1"/*cboEstado.getValue()*/);
+		elRequerimiento.setEstadoRequerimiento("1"/* cboEstado.getValue() */);
 		new MySqlRequerimiento().addRequerimiento(elRequerimiento);
 
 		ArrayList<DetalleRequerimiento> tableSaved = new ArrayList<DetalleRequerimiento>();
@@ -198,20 +202,34 @@ public class frmRequerimiento extends JFrame {
 		int rowCount = tblDetalleRequerimiento.getModel().getRowCount();
 		int colCount = tblDetalleRequerimiento.getModel().getColumnCount();
 		Object objAux;
+
 		for (int row = 0; row < rowCount; row++) {
 			rowSaved = new DetalleRequerimiento();
 			for (int column = 0; column < colCount; column++) {
 				objAux = tblDetalleRequerimiento.getModel().getValueAt(row, column);
 				if (column == 0)
-					rowSaved.codigoRequerimiento = (int) objAux;
+					rowSaved.codigoRequerimiento = Integer.parseInt(objAux.toString());
 				if (column == 1)
-					rowSaved.codigoBienes = (int) objAux;
-				if (column == 2)
-					rowSaved.cantidadBienes = (int) objAux;
+					rowSaved.codigoBienes = new MySqlBienes().listaBienesXnombre(objAux.toString()).get(0).getCodigo();				
+				if (column == 2) {
+					/*
+					 * try { rowSaved.precioBase = format.parse(objAux.toString()).doubleValue(); }
+					 * catch (ParseException e) { e.printStackTrace(); }
+					 */
+					NumberFormat _format = NumberFormat.getInstance(Locale.US);
+					Number number = null;
+					try {
+						number = _format.parse(objAux.toString());
+						double _double = Double.parseDouble(number.toString());
+						System.err.println("Double Value is :" + _double);
+						rowSaved.precioBase = _double;
+					} catch (ParseException e) {
+					}
+				}
 				if (column == 3)
-					rowSaved.precioBase = (double) objAux;
+					rowSaved.cantidadBienes = Integer.parseInt(objAux.toString());
 				if (column == 4)
-					rowSaved.obsBienes = (String) objAux;
+					rowSaved.obsBienes = objAux.toString();
 			}
 			tableSaved.add(rowSaved);
 		}

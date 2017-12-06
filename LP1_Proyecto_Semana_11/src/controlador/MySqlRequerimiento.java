@@ -9,7 +9,7 @@ public class MySqlRequerimiento {
 	public int addRequerimiento(Requerimiento req) {
 		int estado = -1;
 		Connection cn = null;
-		PreparedStatement pstm = null;			
+		PreparedStatement pstm = null;
 		try {
 			cn = new MySqlConectar().getConectar();
 			String sql = "insert into Requerimiento values(?,?,?,?,?)";
